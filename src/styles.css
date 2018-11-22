@@ -1,0 +1,80 @@
+@import url("https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css");
+@import url("https://use.fontawesome.com/releases/v5.5.0/css/all.css");
+
+body {
+  margin: 0;
+  padding: 0;
+}
+#wrapper {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+button {
+  border: none;
+}
+#legend {
+  background-color: white;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 320px;
+  padding: 0px 15px;
+}
+.legend-open {
+  height: 165px;
+}
+.legend-closed {
+  height: 50px;
+}
+* {
+  font-family: Arial;
+}
+h1 {
+  font-size: 20px;
+  cursor: pointer;
+}
+ul {
+  list-style: none;
+  margin-left: -35px;
+}
+li {
+  margin-left: 10px;
+  font-size: 15px;
+  position: relative;
+}
+p {
+  font-size: 12px;
+}
+span.dot {
+  height: 15px;
+  width: 15px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}
+span.conflict {
+  background-color: #ee7d00; /* Change the color */
+}
+span.disaster {
+  background-color: #008dcc; /* Change the color */
+}
+span.development {
+  background-color: #33953e; /* Change the color */
+}
+span.text {
+  bottom: 3px;
+  position: absolute;
+}
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.mapboxgl-popup {
+  max-width: 400px;
+  font: 12px/20px "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
