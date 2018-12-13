@@ -265,10 +265,7 @@ class Map extends React.Component {
       }
       const x = new mapboxgl.Popup();
 
-      x
-        .setLngLat(coordinates)
-        .setHTML(description2)
-        .addTo(this.map).style;
+      x.setLngLat(coordinates).setHTML(description2).addTo(this.map)
 
       x._closeButton.style.color = "white";
       x._closeButton.style.fontSize = "24px";
