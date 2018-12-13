@@ -25,7 +25,9 @@ import {
   CLUSTERING_ENABLED,
   CIRCLE_RADIUS_SMALL_FIGURE,
   CIRCLE_RADIUS_MEDIUM_FIGURE,
-  CIRCLE_RADIUS_LARGE_FIGURE
+  CIRCLE_RADIUS_LARGE_FIGURE,
+  MAPBOX_INITIAL_CENTER,
+  MAPBOX_INITIAL_ZOOM
 } from "./config";
 
 const LAYER_ID_CLUSTER = "clusters";
@@ -169,7 +171,8 @@ class Map extends React.Component {
     this.map = new mapboxgl.Map({
       container: "map", // container id
       style: MAPBOX_STYLE_ID, // stylesheet location
-      bounds: worldBounds
+      center: MAPBOX_INITIAL_CENTER,
+      zoom: MAPBOX_INITIAL_ZOOM
     });
   }
 
