@@ -11,5 +11,5 @@ export const CIRCLE_RADIUS_SMALL_FIGURE = 5;
 export const CIRCLE_RADIUS_MEDIUM_FIGURE = 9;
 export const CIRCLE_RADIUS_LARGE_FIGURE = 13;
 export const CLUSTERING_ENABLED = false;
-export const MAPBOX_INITIAL_ZOOM = 2;
-export const MAPBOX_INITIAL_CENTER = [10,10];
+export const MAPBOX_INITIAL_ZOOM = 1;
+export const MAPBOX_INITIAL_CENTER = [-9,10];
