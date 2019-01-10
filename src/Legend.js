@@ -6,7 +6,7 @@ import {
   IDMC_COLOR_DEVELOPMENT,
   CIRCLE_RADIUS_SMALL_FIGURE,
   CIRCLE_RADIUS_MEDIUM_FIGURE,
-  CIRCLE_RADIUS_LARGE_FIGURE,
+  CIRCLE_RADIUS_LARGE_FIGURE
 } from "./config";
 
 export const Legend = ({
@@ -66,7 +66,7 @@ export const Legend = ({
   const largeCircleTextStyle = textStyle(sizeFilters.large);
 
   const styleLegendOuterWrapper = {
-    width: "330px",
+    width: "290px",
     position: "absolute",
     boxShadow: "- 2px -3px 5px rgba(170, 132, 132, 0.3)",
     boxSizing: "border-box",
@@ -107,11 +107,15 @@ export const Legend = ({
     <div style={styleLegendOuterWrapper}>
       <p style={{ fontSize: "12px" }}>
         This map displays all displacement events recorded by IDMC that have
-        ocurred in the past 30 days.
+        ocurred in the past six months.
       </p>
       <div id="list">
         <select onChange={e => onLastXDaysFilterChange(e)}>
-          <option value="30">Show data from last 30 days</option>
+          <option value="180">Show data from last 180 days</option>
+          <option value="90">Show data from last 90 days</option>
+          <option value="30" selected="selected">
+            Show data from last 30 days
+          </option>
           <option value="15">Show data from last 15 days</option>
           <option value="7">Show data from last 7 days</option>
         </select>
@@ -152,7 +156,7 @@ export const Legend = ({
             type="checkbox"
             onClick={() => onSizeFilterChange("small")}
           >
-            <div style={smallCircleTextStyle}>Less than 100 displaced</div>
+            <div style={smallCircleTextStyle}>Less than 100</div>
             <div style={smallCircle} />
           </button>
           <button
@@ -160,7 +164,7 @@ export const Legend = ({
             type="button"
             onClick={() => onSizeFilterChange("medium")}
           >
-            <div style={mediumCircleTextStyle}>100-1000 displaced</div>
+            <div style={mediumCircleTextStyle}>Between 100 and 1000</div>
             <div style={mediumCircle} />
           </button>
 
@@ -169,7 +173,7 @@ export const Legend = ({
             style={styleLegendItemSecond}
             onClick={() => onSizeFilterChange("large")}
           >
-            <div style={largeCircleTextStyle}>More than 1000 displaced</div>
+            <div style={largeCircleTextStyle}>More than 1000</div>
             <div style={largeCircle} />
           </button>
         </div>
