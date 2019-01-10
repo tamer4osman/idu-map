@@ -6,6 +6,7 @@ import moment from "moment";
 import "./styles.css";
 import { Legend } from "./Legend";
 import { Loading } from "./Loading";
+import { BrowserNotSupported } from "./BrowserNotSupported";
 import {
   eventHasLatitudeAndLongitude,
   eventToLatLng,
@@ -378,12 +379,18 @@ class Map extends React.Component {
   }
 
   componentDidMount() {
+    if (!mapboxgl.supported()) {
+      return;
+    }
     this.initializeMapbox();
     this.addMapControls();
     this.registerMapOnLoadHandler();
   }
 
   render() {
+    if (!mapboxgl.supported()) {
+      return <BrowserNotSupported />;
+    }
     return (
       <div>
         <div id="map" />
