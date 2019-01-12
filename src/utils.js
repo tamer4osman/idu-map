@@ -16,8 +16,8 @@ export const mergeEventsWithSameCoordsAndTypeReducer = (acc, curr) => {
   const currTypeLatLng = eventToTypeLatLng(curr);
   if (lastTypeLatLng === currTypeLatLng) {
     last.standard_info_text += curr.standard_info_text;
-    last.standard_popup_text += curr.standard_popup_text;
-    last.standard_popup_text += curr.figure;
+    last.standard_popup_text += `<br /><br />${curr.standard_popup_text}`;
+    last.figure += curr.figure;
   } else {
     acc.push(curr);
   }
