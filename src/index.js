@@ -69,7 +69,7 @@ class Map extends React.Component {
       .filter(eventHasCoordinates)
       .filter(event => displacementTypes[event.displacement_type])
       .filter(event =>
-        moment(event.displacement_start_date).isSameOrAfter(todayMinuxXDays)
+        moment(event.displacement_date).isSameOrAfter(todayMinuxXDays)
       )
       .filter(event => {
         const figure = event.figure;
@@ -269,7 +269,9 @@ class Map extends React.Component {
       }
       const x = new mapboxgl.Popup();
 
-      x.setLngLat(coordinates).setHTML(description2).addTo(this.map)
+      x.setLngLat(coordinates)
+        .setHTML(description2)
+        .addTo(this.map);
 
       x._closeButton.style.color = "white";
       x._closeButton.style.fontSize = "24px";
