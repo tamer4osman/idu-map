@@ -43,7 +43,7 @@ const filterMapData = (data, displacementTypeFilters, lastXDaysFilter, sizeFilte
       .filter(eventHasCoordinates)
       .filter(event => displacementTypeFilters[ event.displacement_type ])
       .filter(event =>
-          moment(event.displacement_start_date).isSameOrAfter(todayMinuxXDays)
+          moment(event.displacement_date).isSameOrAfter(todayMinuxXDays)
       )
       .filter(event => {
         const figure = event.figure;
