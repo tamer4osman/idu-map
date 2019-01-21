@@ -41,7 +41,7 @@ const mergeEvents = (events) => {
   };
   singleEvent.standard_info_text = flow(
       map(e => e.standard_info_text),
-      join(''),
+      join('<br />'),
   )(events);
   singleEvent.standard_popup_text = flow(
       map(e => e.standard_popup_text),
