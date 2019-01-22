@@ -1,66 +1,70 @@
 * {
-  font-family: "Lato", sans-serif;
+    font-family: "Lato", sans-serif;
 }
 
 a {
-  color: #0078a8;
+    color: #0078a8;
 }
+
 button {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  display: block;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: block;
 }
 
 #map {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
 }
 
 #list select {
-  background: transparent;
-  font: 12px/20px "Open Sans", Arial, Helvetica, sans-serif;
-  border-radius: 3px;
-  background: #fff;
-  padding: 4px;
+    background: transparent;
+    font: 12px/20px "Open Sans", Arial, Helvetica, sans-serif;
+    border-radius: 3px;
+    background: #fff;
+    padding: 4px;
 }
 
 .mapboxgl-popup {
-  max-width: 400px;
-  font: 12px/20px "Open Sans", Arial, Helvetica, sans-serif;
+    max-width: 400px;
+    font: 12px/20px "Open Sans", Arial, Helvetica, sans-serif;
 }
+
 .mapboxgl-popup {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: -webkit-flex;
-  display: flex;
-  will-change: transform;
-  pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: -webkit-flex;
+    display: flex;
+    will-change: transform;
+    pointer-events: none;
 }
 
 .mapboxgl-popup-close-button {
-  position: absolute;
-  right: 0;
-  top: 0;
-  border: 0;
-  border-radius: 0 3px 0 0;
-  cursor: pointer;
-  background-color: transparent;
+    position: absolute;
+    right: 0;
+    top: 0;
+    border: 0;
+    border-radius: 0 3px 0 0;
+    cursor: pointer;
+    background-color: transparent;
 }
 
 .mapboxgl-popup-close-button:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
 .mapboxgl-popup-content {
-  color: #fff;
-  position: relative;
-  background: #2e3c43;
-  border-radius: 3px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  padding: 10px 10px 15px;
-  pointer-events: auto;
+    color: #fff;
+    position: relative;
+    background: #2e3c43;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    padding: 10px 10px 15px;
+    pointer-events: auto;
+    max-height: 400px;
+    overflow-y: scroll;
 }
