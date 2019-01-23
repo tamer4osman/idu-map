@@ -106,7 +106,7 @@ export const Legend = ({
           ocurred in the past six months.
         </p>
         <div id="list">
-          <select onChange={e => onLastXDaysFilterChange(e)} value="30">
+          <select onChange={e => onLastXDaysFilterChange(e)} defaultValue="30">
             <option value="180">Show data from last 180 days</option>
             <option value="90">Show data from last 90 days</option>
             <option value="30">Show data from last 30 days</option>
