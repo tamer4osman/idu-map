@@ -10,12 +10,12 @@ import {
 } from "./config";
 
 export const Legend = ({
-                         displacementTypeFilters,
-                         onLastXDaysFilterChange,
-                         onDisplacementTypeChange,
-                         onSizeFilterChange,
-                         sizeFilters
-                       }) => {
+  displacementTypeFilters,
+  onLastXDaysFilterChange,
+  onDisplacementTypeChange,
+  onSizeFilterChange,
+  sizeFilters
+}) => {
   const circleStyle = margin => (radius, active, color = "black") => ({
     backgroundColor: active ? color : "lightgray",
     width: radius * 2,
@@ -33,23 +33,23 @@ export const Legend = ({
   });
 
   const conflictCircleStyle = displacementCircle(
-      9,
-      displacementTypeFilters.Conflict,
-      IDMC_COLOR_CONFLICT
+    9,
+    displacementTypeFilters.Conflict,
+    IDMC_COLOR_CONFLICT
   );
   const conflictTextStyle = textStyle(displacementTypeFilters.Conflict);
 
   const disasterCircleStyle = displacementCircle(
-      9,
-      displacementTypeFilters.Disaster,
-      IDMC_COLOR_DISASTER
+    9,
+    displacementTypeFilters.Disaster,
+    IDMC_COLOR_DISASTER
   );
   const disasterTextStyle = textStyle(displacementTypeFilters.Disaster);
 
   const developmentCircleStyle = displacementCircle(
-      9,
-      displacementTypeFilters.Development,
-      IDMC_COLOR_DEVELOPMENT
+    9,
+    displacementTypeFilters.Development,
+    IDMC_COLOR_DEVELOPMENT
   );
   const developmentTextStyle = textStyle(displacementTypeFilters.Development);
 
@@ -57,8 +57,8 @@ export const Legend = ({
   const smallCircleTextStyle = textStyle(sizeFilters.small);
 
   const mediumCircle = sizeCircle(
-      CIRCLE_RADIUS_MEDIUM_FIGURE,
-      sizeFilters.medium
+    CIRCLE_RADIUS_MEDIUM_FIGURE,
+    sizeFilters.medium
   );
   const mediumCircleTextStyle = textStyle(sizeFilters.medium);
 
@@ -100,85 +100,87 @@ export const Legend = ({
   });
 
   return (
-      <div style={styleLegendOuterWrapper}>
-        <p style={{ fontSize: "12px" }}>
-          This map displays all displacement events recorded by IDMC that have
-          ocurred in the past six months.
-        </p>
-        <div id="list">
-          <select onChange={e => onLastXDaysFilterChange(e)} defaultValue="30">
-            <option value="180">Show data from last 180 days</option>
-            <option value="90">Show data from last 90 days</option>
-            <option value="30">Show data from last 30 days</option>
-            <option value="15">Show data from last 15 days</option>
-            <option value="7">Show data from last 7 days</option>
-          </select>
-        </div>
-        <br/>
-        <div style={styleLegendInnerWrapper}>
-          <div style={styleLegend}>
-            <button
-                style={styleLegendItem}
-                type="button"
-                onClick={() => onDisplacementTypeChange("Conflict")}
-            >
-              <div style={conflictCircleStyle}/>
-              <div style={conflictTextStyle}>Conflict</div>
-            </button>
-
-            <button
-                style={styleLegendItem}
-                type="button"
-                onClick={() => onDisplacementTypeChange("Disaster")}
-            >
-              <div style={disasterCircleStyle}/>
-              <div style={disasterTextStyle}>Disaster</div>
-            </button>
-
-            <button
-                type="button"
-                style={styleLegendItem}
-                onClick={() => onDisplacementTypeChange("Development")}
-            >
-              <div style={developmentCircleStyle}/>
-              <div style={developmentTextStyle}>Development</div>
-            </button>
-          </div>
-          <div style={styleLegendSecond}>
-            <button
-                style={styleLegendItemSecond}
-                type="checkbox"
-                onClick={() => onSizeFilterChange("small")}
-            >
-              <div style={smallCircleTextStyle}>Less than 100</div>
-              <div style={smallCircle}/>
-            </button>
-            <button
-                style={styleLegendItemSecond}
-                type="button"
-                onClick={() => onSizeFilterChange("medium")}
-            >
-              <div style={mediumCircleTextStyle}>Between 100 and 1000</div>
-              <div style={mediumCircle}/>
-            </button>
-
-            <button
-                type="button"
-                style={styleLegendItemSecond}
-                onClick={() => onSizeFilterChange("large")}
-            >
-              <div style={largeCircleTextStyle}>More than 1000</div>
-              <div style={largeCircle}/>
-            </button>
-          </div>
-        </div>
-        <p style={{ fontSize: "10px", marginBottom: "0px", color: "grey" }}>
-          Developed by students at{" "}
-          <a href="https://www.redi-school.org/" target="_blank">
-            ReDI School
-          </a>
-          .
-        </p>
+    <div style={styleLegendOuterWrapper}>
+      <p style={{ fontSize: "12px" }}>
+        This map displays all displacement events recorded by IDMC that have
+        ocurred in the past six months.
+      </p>
+      <div id="list">
+        <select onChange={e => onLastXDaysFilterChange(e)} defaultValue="30">
+          <option value="180">Show data from last 180 days</option>
+          <option value="90">Show data from last 90 days</option>
+          <option value="30">Show data from last 30 days</option>
+          <option value="15">Show data from last 15 days</option>
+          <option value="7">Show data from last 7 days</option>
+        </select>
       </div>
+      <br />
+      <div style={styleLegendInnerWrapper}>
+        <div style={styleLegend}>
+          <button
+            style={styleLegendItem}
+            type="button"
+            onClick={() => onDisplacementTypeChange("Conflict")}
+          >
+            <div style={conflictCircleStyle} />
+            <div style={conflictTextStyle}>Conflict</div>
+          </button>
+
+          <button
+            style={styleLegendItem}
+            type="button"
+            onClick={() => onDisplacementTypeChange("Disaster")}
+          >
+            <div style={disasterCircleStyle} />
+            <div style={disasterTextStyle}>Disaster</div>
+          </button>
+
+          <button
+            type="button"
+            style={styleLegendItem}
+            onClick={() => onDisplacementTypeChange("Development")}
+          >
+            <div style={developmentCircleStyle} />
+            <div style={developmentTextStyle}>Development</div>
+          </button>
+        </div>
+        <div style={styleLegendSecond}>
+          <button
+            style={styleLegendItemSecond}
+            type="checkbox"
+            onClick={() => onSizeFilterChange("small")}
+          >
+            <div style={smallCircleTextStyle}>Less than 100</div>
+            <div style={smallCircle} />
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+          </button>
+          <button
+            style={styleLegendItemSecond}
+            type="button"
+            onClick={() => onSizeFilterChange("medium")}
+          >
+            <div style={mediumCircleTextStyle}>Between 100 and 1000</div>
+            <div style={mediumCircle} />
+            <div>&nbsp;&nbsp;&nbsp;</div>
+          </button>
+
+          <button
+            type="button"
+            style={styleLegendItemSecond}
+            onClick={() => onSizeFilterChange("large")}
+          >
+            <div style={largeCircleTextStyle}>More than 1000</div>
+            <div style={largeCircle} />
+          </button>
+        </div>
+      </div>
+      <p style={{ fontSize: "10px", marginBottom: "0px", color: "grey" }}>
+        Developed by students at{" "}
+        <a href="https://www.redi-school.org/" target="_blank">
+          ReDI School
+        </a>
+        .
+      </p>
+    </div>
   );
 };
