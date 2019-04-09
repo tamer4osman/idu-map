@@ -57,10 +57,14 @@ const filterMapData = (data, displacementTypeFilters, lastXDaysFilter, sizeFilte
 };
 
 const renderEventsWithOffsetFactor = (map, events, offsetFactor) => {
+  if (map.getLayer(layerName(offsetFactor))) map.removeLayer(layerName(offsetFactor));
+  if (map.getSource(sourceName(offsetFactor))) map.removeSource(sourceName(offsetFactor));
+
   map.addSource(sourceName(offsetFactor), {
     type: "geojson",
     data: mapDataToGeoJson([]),
   });
+  
   map.addLayer({
     id: layerName(offsetFactor),
     type: "circle",
