@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+import forEach from "lodash/fp/forEach";
 import map from "lodash/fp/map";
 import moment from "moment";
 import "./styles.css";
@@ -55,7 +56,7 @@ const filterMapData = (data, displacementTypeFilters, lastXDaysFilter, sizeFilte
       })
 };
 
-const rendererFactory = (map, events, offsetFactor) => {
+const renderEventsWithOffsetFactor = (map, events, offsetFactor) => {
   map.addSource(sourceName(offsetFactor), {
     type: "geojson",
     data: mapDataToGeoJson([]),
@@ -153,20 +154,13 @@ const rendererFactory = (map, events, offsetFactor) => {
     popup.remove();
   });
 
-  return (displacementTypeFilters, lastXDaysFilter, sizeFilters) => {
-    map
-        .getSource(sourceName(offsetFactor))
-        .setData(
-            mapDataToGeoJson(
-                filterMapData(
-                    events,
-                    displacementTypeFilters,
-                    lastXDaysFilter,
-                    sizeFilters,
-                )
-            )
-        )
-  }
+  map
+      .getSource(sourceName(offsetFactor))
+      .setData(
+          mapDataToGeoJson(
+            events,
+          )
+      )
 };
 
 class Map extends React.Component {
@@ -194,7 +188,7 @@ class Map extends React.Component {
       ...this.state.displacementTypeFilters,
       [ value ]: !currentState
     };
-    this.setState({ displacementTypeFilters }, () => this.executeRenderers());
+    this.setState({ displacementTypeFilters }, () => this.updateMap());
   }
 
   handleSizeFilterChange(value) {
@@ -203,12 +197,12 @@ class Map extends React.Component {
       ...this.state.sizeFilters,
       [ value ]: !currentState
     };
-    this.setState({ sizeFilters }, () => this.executeRenderers());
+    this.setState({ sizeFilters }, () => this.updateMap());
   }
 
   handleLastXDaysFilterChange(event) {
     const daysOfdisplacement = Number(event.target.value);
-    this.setState({ lastXDaysFilter: daysOfdisplacement }, () => this.executeRenderers());
+    this.setState({ lastXDaysFilter: daysOfdisplacement }, () => this.updateMap());
   }
 
   initializeMapbox() {
@@ -242,12 +236,18 @@ class Map extends React.Component {
     // Create a popup, but don't add it to the map yet.
   }
 
-  executeRenderers() {
-    this.renderers.forEach(renderer => renderer(
-        this.state.displacementTypeFilters,
-        this.state.lastXDaysFilter,
-        this.state.sizeFilters,
-    ))
+  updateMap() {
+    const events = filterMapData(
+      this.rawEvents,
+      this.state.displacementTypeFilters,
+      this.state.lastXDaysFilter,
+      this.state.sizeFilters,
+    )
+    
+    const offsetGroups = rawDataToOffsetGrouped(events);
+    forEach(events => {
+      renderEventsWithOffsetFactor(this.map, events, events[ 0 ].offsetFactor);
+    })(offsetGroups)
   }
 
   componentDidMount() {
@@ -259,14 +259,8 @@ class Map extends React.Component {
     this.onMapReady()
         .then(() => this.fetchIdmcData())
         .then(events => {
-          const offsetGroups = rawDataToOffsetGrouped(events);
-          this.renderers = map(
-              events => {
-                return rendererFactory(this.map, events, events[ 0 ].offsetFactor)
-              }
-          )(offsetGroups);
-
-          this.executeRenderers();
+          this.rawEvents = events
+          this.updateMap()
 
           this.setState({ loading: false });
         })
