@@ -56,9 +56,9 @@ const filterMapData = (data, displacementTypeFilters, lastXDaysFilter, sizeFilte
       })
 };
 
-const renderEventsWithOffsetFactor = (map, events, offsetFactor) => {
-  if (map.getLayer(layerName(offsetFactor))) map.removeLayer(layerName(offsetFactor));
-  if (map.getSource(sourceName(offsetFactor))) map.removeSource(sourceName(offsetFactor));
+const configureMapOffsetRenderer = (map, offsetFactor) => {
+  // Don't do if already done (i.e. if source already configured)
+  if (map.getSource(sourceName(offsetFactor))) return;
 
   map.addSource(sourceName(offsetFactor), {
     type: "geojson",
@@ -158,14 +158,14 @@ const renderEventsWithOffsetFactor = (map, events, offsetFactor) => {
     popup.remove();
   });
 
-  map
+  return events => map
       .getSource(sourceName(offsetFactor))
       .setData(
           mapDataToGeoJson(
             events,
           )
       )
-};
+}
 
 class Map extends React.Component {
   state = {
@@ -185,6 +185,9 @@ class Map extends React.Component {
     },
     lastXDaysFilter: 30
   };
+
+  // Cache to store renderers for each offset factor
+  offsetFactorRenderers = {}
 
   handleDisplacementTypeChange(value) {
     const currentState = this.state.displacementTypeFilters[ value ];
@@ -248,10 +251,28 @@ class Map extends React.Component {
       this.state.sizeFilters,
     )
     
+    // Group all the events we have into offset groups
     const offsetGroups = rawDataToOffsetGrouped(events);
-    forEach(events => {
-      renderEventsWithOffsetFactor(this.map, events, events[ 0 ].offsetFactor);
-    })(offsetGroups)
+
+    // Go through every offsetFactor
+    for (const offsetFactor in offsetGroups) {
+      // Get renderer for this offsetFactor. For optimization purposes, the function
+      // configureMapOffsetRenderer will return undefined if a renderer is already configured.
+      // If a renderer were re-created, the map goes through a "blink" effect (due to events being
+      // removed and then re-inserted).
+      // Store all offsetFactor renderers in dictioanry
+      const offsetFactorRenderer = configureMapOffsetRenderer(this.map, offsetFactor)
+      if (offsetFactorRenderer) {
+        this.offsetFactorRenderers[offsetFactor] = offsetFactorRenderer;
+      }
+    }
+
+    // Loop through all renderers. Get the data to show in each one - if none available,
+    // render with none (necessary for the case of going from some data on the map to none)
+    for (const offsetFactor in this.offsetFactorRenderers) {
+      const events = offsetGroups[offsetFactor] || []
+      this.offsetFactorRenderers[offsetFactor](events)
+    }
   }
 
   componentDidMount() {
